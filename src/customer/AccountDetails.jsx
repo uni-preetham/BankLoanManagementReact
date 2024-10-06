@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AccountDetails = () => {
   const [accounts, setAccounts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -20,6 +22,10 @@ const AccountDetails = () => {
 
     fetchAccounts();
   }, []);
+
+  const handleViewEMIDetails = (accountId) => {
+    navigate(`/emi-details/${accountId}`); // Navigate to EMIDetails with account ID
+  };
 
   return (
     <div>
@@ -39,6 +45,9 @@ const AccountDetails = () => {
                     Duration: {account.durationYears} years<br />
                     Approval Date: {new Date(account.approvalDate).toLocaleDateString()}
                   </p>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => handleViewEMIDetails(account.accountId)}>View EMI Details</button>
                 </div>
               </div>
             </div>

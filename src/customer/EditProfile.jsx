@@ -3,7 +3,6 @@ import axios from "axios";
 import UserNavbar from "../navbar/UserNavbar";
 
 const EditProfile = () => {
-  // State for profile form fields
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -13,13 +12,8 @@ const EditProfile = () => {
     address: "",
   });
 
-  // State for userId
   const [userId, setUserId] = useState(null);
-
-  // Active tab state
   const [activeTab, setActiveTab] = useState("profile");
-
-  // State for address form fields
   const [addressData, setAddressData] = useState({
     addressLine1: "",
     addressLine2: "",
@@ -28,7 +22,6 @@ const EditProfile = () => {
     zipCode: "",
   });
 
-  // State for occupation form fields
   const [occupationData, setOccupationData] = useState({
     occupationType: "",
     occupationName: "",
@@ -36,8 +29,8 @@ const EditProfile = () => {
     salary: 0,
   });
 
-  // Fetch user profile, address, and occupation details
   useEffect(() => {
+    // Fetch user profile data
     axios
       .get("http://localhost:8080/bankloanmanagementsystem/api/user/details", {
         withCredentials: true,
@@ -45,18 +38,16 @@ const EditProfile = () => {
       .then((response) => {
         const user = response.data;
         setUserId(user.userId);
-
-        // Populate profile form data
         setFormData({
-          firstName: user.firstName || "",
-          lastName: user.lastName || "",
-          phone: user.phone || "",
-          salary: user.salary || 0,
-          creditScore: user.creditScore || 0,
-          address: user.address || "",
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone,
+          salary: user.salary,
+          creditScore: user.creditScore,
+          address: user.address,
         });
 
-        // Fetch address and occupation data
+        // Fetch address and occupation details
         fetchAddress(user.userId);
         fetchOccupation(user.userId);
       })
@@ -68,18 +59,9 @@ const EditProfile = () => {
   // Fetch address details
   const fetchAddress = (userId) => {
     axios
-      .get(
-        `http://localhost:8080/bankloanmanagementsystem/api/address/${userId}`,
-        { withCredentials: true }
-      )
+      .get(`http://localhost:8080/bankloanmanagementsystem/api/address/${userId}`, { withCredentials: true })
       .then((response) => {
-        setAddressData({
-          addressLine1: response.data.addressLine1 || "",
-          addressLine2: response.data.addressLine2 || "",
-          city: response.data.city || "",
-          state: response.data.state || "",
-          zipCode: response.data.zipCode || "",
-        });
+        setAddressData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching address data:", error);
@@ -89,51 +71,35 @@ const EditProfile = () => {
   // Fetch occupation details
   const fetchOccupation = (userId) => {
     axios
-      .get(
-        `http://localhost:8080/bankloanmanagementsystem/api/occupation/${userId}`,
-        { withCredentials: true }
-      )
+      .get(`http://localhost:8080/bankloanmanagementsystem/api/occupation/${userId}`, { withCredentials: true })
       .then((response) => {
-        setOccupationData({
-          occupationType: response.data.occupationType || "",
-          occupationName: response.data.occupationName || "",
-          companyName: response.data.companyName || "",
-          salary: response.data.salary || 0,
-        });
+        setOccupationData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching occupation data:", error);
       });
   };
 
-  // Handle profile form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle address form changes
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
     setAddressData({ ...addressData, [name]: value });
   };
 
-  // Handle occupation form changes
   const handleOccupationChange = (e) => {
     const { name, value } = e.target;
     setOccupationData({ ...occupationData, [name]: value });
   };
 
-  // Submit profile data
   const handleSubmitProfile = (e) => {
     e.preventDefault();
     if (userId) {
       axios
-        .put(
-          `http://localhost:8080/bankloanmanagementsystem/api/user/edit/${userId}`,
-          formData,
-          { withCredentials: true }
-        )
+        .put(`http://localhost:8080/bankloanmanagementsystem/api/user/edit/${userId}`, formData, { withCredentials: true })
         .then((response) => {
           alert("Profile updated successfully");
           setFormData(response.data);
@@ -144,19 +110,14 @@ const EditProfile = () => {
     }
   };
 
-  // Submit address data
   const handleSubmitAddress = (e) => {
     e.preventDefault();
     if (userId) {
       axios
-        .post(
-          `http://localhost:8080/bankloanmanagementsystem/api/address/add/${userId}`,
-          addressData,
-          { withCredentials: true }
-        )
+        .post(`http://localhost:8080/bankloanmanagementsystem/api/address/add/${userId}`, addressData, { withCredentials: true })
         .then((response) => {
           alert("Address added/updated successfully");
-          setAddressData(response.data);
+          setAddressData(response.data); // Optionally update the state with the new address
         })
         .catch((error) => {
           console.error("Error adding address:", error);
@@ -164,19 +125,14 @@ const EditProfile = () => {
     }
   };
 
-  // Submit occupation data
   const handleSubmitOccupation = (e) => {
     e.preventDefault();
     if (userId) {
       axios
-        .post(
-          `http://localhost:8080/bankloanmanagementsystem/api/occupation/add/${userId}`,
-          occupationData,
-          { withCredentials: true }
-        )
+        .post(`http://localhost:8080/bankloanmanagementsystem/api/occupation/add/${userId}`, occupationData, { withCredentials: true })
         .then((response) => {
           alert("Occupation added/updated successfully");
-          setOccupationData(response.data);
+          setOccupationData(response.data); // Optionally update the state with the new occupation
         })
         .catch((error) => {
           console.error("Error adding occupation:", error);
@@ -191,28 +147,13 @@ const EditProfile = () => {
         <h2>Edit Profile</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a
-              className={`nav-link ${activeTab === "profile" ? "active" : ""}`}
-              onClick={() => setActiveTab("profile")}
-            >
-              Profile
-            </a>
+            <a className={`nav-link ${activeTab === "profile" ? "active" : ""}`} onClick={() => setActiveTab("profile")}>Profile</a>
           </li>
           <li className="nav-item">
-            <a
-              className={`nav-link ${activeTab === "address" ? "active" : ""}`}
-              onClick={() => setActiveTab("address")}
-            >
-              Address
-            </a>
+            <a className={`nav-link ${activeTab === "address" ? "active" : ""}`} onClick={() => setActiveTab("address")}>Address</a>
           </li>
           <li className="nav-item">
-            <a
-              className={`nav-link ${activeTab === "occupation" ? "active" : ""}`}
-              onClick={() => setActiveTab("occupation")}
-            >
-              Occupation
-            </a>
+            <a className={`nav-link ${activeTab === "occupation" ? "active" : ""}`} onClick={() => setActiveTab("occupation")}>Occupation</a>
           </li>
         </ul>
 
@@ -221,43 +162,19 @@ const EditProfile = () => {
             {/* Profile form fields */}
             <div className="form-group">
               <label>First Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
+              <input type="text" className="form-control" name="firstName" value={formData.firstName} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Last Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
+              <input type="text" className="form-control" name="lastName" value={formData.lastName} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Phone</label>
-              <input
-                type="text"
-                className="form-control"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
+              <input type="text" className="form-control" name="phone" value={formData.phone} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Credit Score</label>
-              <input
-                type="number"
-                className="form-control"
-                name="creditScore"
-                value={formData.creditScore}
-                onChange={handleChange}
-              />
+              <input type="number" className="form-control" name="creditScore" value={formData.creditScore} onChange={handleChange} />
             </div>
             <button type="submit" className="btn btn-primary">Save Profile</button>
           </form>
@@ -268,53 +185,23 @@ const EditProfile = () => {
             {/* Address form fields */}
             <div className="form-group">
               <label>Address Line 1</label>
-              <input
-                type="text"
-                className="form-control"
-                name="addressLine1"
-                value={addressData.addressLine1}
-                onChange={handleAddressChange}
-              />
+              <input type="text" className="form-control" name="addressLine1" value={addressData.addressLine1} onChange={handleAddressChange} />
             </div>
             <div className="form-group">
               <label>Address Line 2</label>
-              <input
-                type="text"
-                className="form-control"
-                name="addressLine2"
-                value={addressData.addressLine2}
-                onChange={handleAddressChange}
-              />
+              <input type="text" className="form-control" name="addressLine2" value={addressData.addressLine2} onChange={handleAddressChange} />
             </div>
             <div className="form-group">
               <label>City</label>
-              <input
-                type="text"
-                className="form-control"
-                name="city"
-                value={addressData.city}
-                onChange={handleAddressChange}
-              />
+              <input type="text" className="form-control" name="city" value={addressData.city} onChange={handleAddressChange} />
             </div>
             <div className="form-group">
               <label>State</label>
-              <input
-                type="text"
-                className="form-control"
-                name="state"
-                value={addressData.state}
-                onChange={handleAddressChange}
-              />
+              <input type="text" className="form-control" name="state" value={addressData.state} onChange={handleAddressChange} />
             </div>
             <div className="form-group">
               <label>Zip Code</label>
-              <input
-                type="text"
-                className="form-control"
-                name="zipCode"
-                value={addressData.zipCode}
-                onChange={handleAddressChange}
-              />
+              <input type="text" className="form-control" name="zipCode" value={addressData.zipCode} onChange={handleAddressChange} />
             </div>
             <button type="submit" className="btn btn-primary">Save Address</button>
           </form>
@@ -325,43 +212,19 @@ const EditProfile = () => {
             {/* Occupation form fields */}
             <div className="form-group">
               <label>Occupation Type</label>
-              <input
-                type="text"
-                className="form-control"
-                name="occupationType"
-                value={occupationData.occupationType}
-                onChange={handleOccupationChange}
-              />
+              <input type="text" className="form-control" name="occupationType" value={occupationData.occupationType} onChange={handleOccupationChange} />
             </div>
             <div className="form-group">
               <label>Occupation Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="occupationName"
-                value={occupationData.occupationName}
-                onChange={handleOccupationChange}
-              />
+              <input type="text" className="form-control" name="occupationName" value={occupationData.occupationName} onChange={handleOccupationChange} />
             </div>
             <div className="form-group">
               <label>Company Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="companyName"
-                value={occupationData.companyName}
-                onChange={handleOccupationChange}
-              />
+              <input type="text" className="form-control" name="companyName" value={occupationData.companyName} onChange={handleOccupationChange} />
             </div>
             <div className="form-group">
               <label>Salary</label>
-              <input
-                type="number"
-                className="form-control"
-                name="salary"
-                value={occupationData.salary}
-                onChange={handleOccupationChange}
-              />
+              <input type="number" className="form-control" name="salary" value={occupationData.salary} onChange={handleOccupationChange} />
             </div>
             <button type="submit" className="btn btn-primary">Save Occupation</button>
           </form>

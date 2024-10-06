@@ -34,10 +34,13 @@ const LoanRequestForm = () => {
 
         if (response.ok) {
           const data = await response.json();
-          if (data.creditScore < 700 || data.salary < 50000) {
-            handleShowModal(
-              "You are not eligible to apply for a loan because your credit score is less than 700 or your salary is less than ₹50,000."
-            );
+          if (data.occupation && data.address) {
+            if (data.creditScore < 700) {
+              handleShowModal("You are not eligible to apply for a loan because of your low credit score.");
+            }
+          } else {
+            handleShowModal("Occupation & Address information is missing. ");
+           
           }
 
           setUser(data);
@@ -78,6 +81,8 @@ const LoanRequestForm = () => {
     const loanTypeId = searchParams.get("loanTypeId");
     if (loanTypeId) {
       fetchLoanTypeDetails(loanTypeId);
+    }else{
+      console.log("no id")
     }
 
     fetchUserDetails();
@@ -87,17 +92,11 @@ const LoanRequestForm = () => {
   const validationSchema = Yup.object().shape({
     requestedAmount: Yup.number()
       .required("Requested amount is required")
-      .test(
-        "max-amount",
-        "Requested amount exceeds the maximum allowed amount.",
-        function (value) {
-          const { maxAmount } = loanTypeDetails || {};
-          if (!maxAmount) {
-            return true; // Skip validation if maxAmount is not available
-          }
-          return value <= maxAmount;
-        }
-      ),
+      .test("max-amount", "Requested amount cannot exceed 5x your salary.", function (value) {
+        const salary = formik.values.salary; // Get the salary from Formik values
+        const maxAmount = salary * 5; // Calculate max amount as 5 times the salary
+        return value <= maxAmount; // Check against calculated max amount
+      }),
     loanTerm: Yup.number()
       .required("Loan term is required")
       .min(1, "Loan term must be at least 1 year")
@@ -276,7 +275,8 @@ const LoanRequestForm = () => {
                 required
               />
               <label htmlFor="requestedAmount">
-                Requested Amount (Max: ₹{loanTypeDetails.maxAmount})
+              Requested Amount (Max: ₹{user && user.occupation ? user.occupation.salary * 5 : "N/A"})
+
               </label>
               {formik.touched.requestedAmount &&
               formik.errors.requestedAmount ? (

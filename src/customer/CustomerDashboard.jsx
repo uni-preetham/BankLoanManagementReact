@@ -4,6 +4,7 @@ import BankDetails from "../bank/BankDetails";
 import LoanEMICalculator from "./LoanEMICalculator";
 import { useNavigate } from "react-router-dom";
 import AccountDetails from "./AccountDetails";
+import Footer from "./../pages/Footer"
 
 function CustomerDashboard() {
   const [user, setUser] = useState("");
@@ -34,13 +35,18 @@ function CustomerDashboard() {
   return (
     <>
     <UserNavbar />
+    <div className="bg-light">
       <div className="container">
         {/* Display a personalized message */}
         <h1>Hi {user.firstName}!</h1>
         <LoanEMICalculator />
         <BankDetails />
         <AccountDetails />
+        {/* <EMIDetails /> */}
+        
       </div>
+      </div>
+      <Footer />
     </>
   );
 }

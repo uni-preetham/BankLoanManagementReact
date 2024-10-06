@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const LoanEmiCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState(10000); // Initial loan amount
+  const [loanAmount, setLoanAmount] = useState(500000); // Initial loan amount
   const [interestRate, setInterestRate] = useState(5); // Default interest rate
-  const [tenureYears, setTenureYears] = useState(1); // Default tenure in years
+  const [tenureYears, setTenureYears] = useState(3); // Default tenure in years
 
   // Calculate EMI using the formula
   const calculateEMI = (principal, rate, tenureMonths) => {
@@ -20,8 +20,6 @@ const LoanEmiCalculator = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Loan EMI Calculator</h2>
-
       <div className="card p-4">
         <div className="row">
           <div className="col-md">
@@ -95,6 +93,7 @@ const LoanEmiCalculator = () => {
             </div>
           </div>
           <div className="col-md">
+            <h4 className="mb-4">Calculate your monthly EMI</h4>
             <div className="card p-3">
               <p>Estimated EMI</p>
               <h2>₹{emi}</h2>

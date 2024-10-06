@@ -18,6 +18,8 @@ import EditManagerProfile from "./manager/EditManagerProfile";
 import Timeout from "./pages/Timeout";
 import LoanList from "./customer/LoanList";
 import LoanTypeDetails from "./pages/LoanTypeDetails";
+import AccountDetails from "./customer/AccountDetails";
+import EMIDetails from "./customer/EMIDetails";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
         <Route path="/loanlist" element={<LoanTypeDetails/>} />
         <Route path="/timeout" element={<Timeout/>} />
         <Route path="*" element={<Error />} />
+        <Route path="/accounts" element={<AccountDetails />} />
+        <Route path="/emi-details/:accountId" element={<EMIDetails />} />
       </Routes>
     </>
   );
