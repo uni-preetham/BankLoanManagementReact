@@ -244,7 +244,7 @@ const ManagerDashboard = () => {
                     </button> */}
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="btn btn-dark text-white rounded-pill"
                       onClick={handleConfirmApprove}
                     >
                       Approve

@@ -16,8 +16,6 @@ const Register = () => {
       lastName: "",
       email: "",
       phone: "",
-      salary: "",
-      creditScore: "",
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -41,9 +39,6 @@ const Register = () => {
       phone: Yup.string()
         .matches(/^[6-9]\d{9}$/, "Phone number must start with 6, 7, 8, or 9 and contain 10 digits")
         .required("Phone number is required"),
-      salary: Yup.number()
-        .positive("Salary must be positive")
-        .required("Salary is required"),
     }),
     onSubmit: async (values) => {
       try {
@@ -176,24 +171,6 @@ const Register = () => {
                   <label htmlFor="floatingPhone">Phone<span className="text-danger">*</span></label>
                   {formik.touched.phone && formik.errors.phone ? (
                     <div className="invalid-feedback">{formik.errors.phone}</div>
-                  ) : null}
-                </div>
-
-                <div className="form-floating mb-2">
-                  <input
-                    type="number"
-                    name="salary"
-                    className={`form-control ${formik.touched.salary && formik.errors.salary ? 'is-invalid' : ''}`}
-                    id="floatingSalary"
-                    placeholder="Annual Income"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.salary}
-                    required
-                  />
-                  <label htmlFor="floatingSalary">Annual Income<span className="text-danger">*</span></label>
-                  {formik.touched.salary && formik.errors.salary ? (
-                    <div className="invalid-feedback">{formik.errors.salary}</div>
                   ) : null}
                 </div>
 

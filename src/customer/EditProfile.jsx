@@ -173,7 +173,9 @@ const EditProfile = () => {
               <ul className="nav nav-tabs mb-3">
                 <li className="nav-item">
                   <a
-                    className={`nav-link ${activeTab === "profile" ? "active" : ""}`}
+                    className={`nav-link ${
+                      activeTab === "profile" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("profile")}
                   >
                     Profile
@@ -181,7 +183,9 @@ const EditProfile = () => {
                 </li>
                 <li className="nav-item">
                   <a
-                    className={`nav-link ${activeTab === "address" ? "active" : ""}`}
+                    className={`nav-link ${
+                      activeTab === "address" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("address")}
                   >
                     Address
@@ -189,7 +193,9 @@ const EditProfile = () => {
                 </li>
                 <li className="nav-item">
                   <a
-                    className={`nav-link ${activeTab === "occupation" ? "active" : ""}`}
+                    className={`nav-link ${
+                      activeTab === "occupation" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("occupation")}
                   >
                     Occupation
@@ -248,7 +254,15 @@ const EditProfile = () => {
                     />
                     <label htmlFor="creditScore">Credit Score</label>
                   </div>
-                  <button type="submit" className="btn btn-primary">
+                  <div className="text-end mt-3">
+                    <a
+                      href={`/changepassword/${userId}`} // Pass userId as URL parameter
+                      className="nav-link"
+                    >
+                      Change Password
+                    </a>
+                  </div>
+                  <button type="submit" className="btn btn-dark rounded-pill">
                     Save Profile
                   </button>
                 </form>
@@ -317,7 +331,7 @@ const EditProfile = () => {
                     />
                     <label htmlFor="zipCode">Zip Code</label>
                   </div>
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-dark rounded-pill">
                     Save Address
                   </button>
                 </form>
@@ -374,7 +388,7 @@ const EditProfile = () => {
                     />
                     <label htmlFor="salary">Salary</label>
                   </div>
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-dark rounded-pill">
                     Save Occupation
                   </button>
                 </form>
