@@ -20,7 +20,7 @@ const LoanEmiCalculator = () => {
 
   return (
     <div className="container py-4">
-      <div className="card p-4" style={{backgroundColor: "rgba(255, 114, 94, 0.1)"}}>
+      <div className="card p-3">
         <div className="row">
           <div className="col-md">
             <div className="mb-3 d-flex flex-column">
@@ -94,7 +94,7 @@ const LoanEmiCalculator = () => {
           </div>
           <div className="col-md">
             <h4 className="mb-4">Calculate your monthly EMI</h4>
-            <div className="card p-3">
+            <div className="card p-3" style={{backgroundColor: "rgba(255, 114, 94, 0.1)"}}>
               <p>Estimated EMI</p>
               <h2>₹{emi}</h2>
             </div>

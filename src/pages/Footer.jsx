@@ -5,12 +5,12 @@ import { FaInstagram, FaFacebook, FaTwitter, FaPhone  } from "react-icons/fa";
 function Footer() {
   return (
     <>
-      <footer className="container" style={{ fontSize: '14px' }}>
+      <footer style={{ fontSize: '14px' }}>
       <div className="row bg-white pt-3">
         <div className="col-4 d-flex flex-column justify-content-center align-items-center border-end">
-          <div >
+          <div className="w-50">
             <a className="navbar-brand" href="#">
-              <img src={Logo} alt="" className="w-50 my-2"/>
+              <img src={Logo} alt="" className=" my-2"/>
             </a>
             <p className="text-grey my-3">
             Find the perfect loan with competitive rates, flexible terms, and tailored solutions—just for you

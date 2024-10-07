@@ -14,15 +14,20 @@ const RevenueChart = () => {
       try {
         const response = await axios.get("http://localhost:8080/bankloanmanagementsystem/api/banks/monthly", { withCredentials: "true" });
         const revenueData = response.data;
-        
-        console.log(revenueData);
 
         if (!revenueData || revenueData.length === 0) {
           console.error("No revenue data found for the bank.");
           return;
         }
 
-        const labels = revenueData.map((data) => `Month ${data.month}`);
+        // Month names array
+        const monthNames = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Map month numbers to month names
+        const labels = revenueData.map((data) => monthNames[data.month - 1]); // Adjust for zero-based index
         const dataPoints = revenueData.map((data) => data.totalRevenue);
 
         // Create the chart
@@ -35,7 +40,7 @@ const RevenueChart = () => {
 
         // Create a new chart instance
         myChartRef.current = new Chart(ctx, {
-          type: "line", // Define the chart type
+          type: "bar", // Change to 'bar' for a bar chart
           data: {
             labels: labels,
             datasets: [
@@ -43,8 +48,8 @@ const RevenueChart = () => {
                 label: "Total Revenue",
                 data: dataPoints,
                 borderColor: "rgba(75,192,192,1)",
-                backgroundColor: "rgba(75,192,192,0.2)",
-                fill: true,
+                backgroundColor: "rgba(75,192,192,0.5)", // Adjusted for better visibility
+                borderWidth: 1,
               },
             ],
           },
@@ -52,7 +57,6 @@ const RevenueChart = () => {
             responsive: true,
             scales: {
               x: {
-                type: "category",
                 title: {
                   display: true,
                   text: "Month",
@@ -63,6 +67,7 @@ const RevenueChart = () => {
                   display: true,
                   text: "Revenue ($)",
                 },
+                beginAtZero: true, // Start the y-axis at 0
               },
             },
           },
@@ -83,8 +88,8 @@ const RevenueChart = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Monthly Revenue for Your Bank</h2>
+    <div className="">
+      <h2 className="px-4 pt-4 fw-bold display-6">Expected Monthly Revenue</h2>
       <canvas ref={chartRef} id="myChart" />
     </div>
   );

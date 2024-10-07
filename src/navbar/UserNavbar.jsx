@@ -28,7 +28,7 @@ function UserNavbar() {
     <>
       <nav className="navbar navbar-expand-sm navbar-light bg-white border border-bottom">
         <div className="container">
-          <button className="navbar-brand me-5 btn" onClick={() => navigate("/")} style={{ backgroundColor: 'transparent', border: 'none' }}>
+          <button className="navbar-brand me-5 btn" onClick={() => navigate("/user/dashboard")} style={{ backgroundColor: 'transparent', border: 'none' }}>
             <img src={Logo} alt="logo" className="App-logo" />
           </button>
           <button

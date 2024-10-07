@@ -40,7 +40,6 @@ const LoanList = () => {
         ) : (
           <div className="card shadow-sm">
             <div className="card-body">
-              <h5 className="card-title">Payment Schedule</h5>
               <table className="table table-hover">
                 <thead className="thead-light">
                   <tr>

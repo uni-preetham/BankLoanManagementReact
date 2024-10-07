@@ -20,6 +20,9 @@ import LoanList from "./customer/LoanList";
 import LoanTypeDetails from "./pages/LoanTypeDetails";
 import AccountDetails from "./customer/AccountDetails";
 import EMIDetails from "./customer/EMIDetails";
+import ManagerList from "./manager/ManagerList";
+import LoanTypeList from "./loan/LoanTypeList";
+import EditLoanType from "./loan/EditLoanType";
 
 function App() {
   return (
@@ -46,6 +49,9 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route path="/accounts" element={<AccountDetails />} />
         <Route path="/emi-details/:accountId" element={<EMIDetails />} />
+        <Route path="/bank/allmanagers" element={<ManagerList />} />
+        <Route path="/bank/viewloans" element={<LoanTypeList />} />
+        <Route path="/bank/editloantype/:loanTypeId" element={<EditLoanType />} />
       </Routes>
     </>
   );

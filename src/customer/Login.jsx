@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Use for navigation
 import Navbar from "../navbar/Navbar";
 import amico from "./Mobile login-amico.png";
+import { FaEye } from "react-icons/fa";
 
 const Login = () => {
   const [notification, setNotification] = useState("");
@@ -11,6 +12,7 @@ const Login = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const navigate = useNavigate(); // React Router hook for navigation
 
   const handleChange = (e) => {
@@ -23,7 +25,7 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:8080/bankloanmanagementsystem/api/login/loginuser",
         formData,
-        { withCredentials: true } 
+        { withCredentials: true }
       );
       const redirectUrl = response.data;
 
@@ -40,17 +42,20 @@ const Login = () => {
     if (successMessage) {
       setNotification(successMessage);
       localStorage.removeItem("registrationSuccess"); // Remove message after displaying
-  
+
       // Set a timeout to clear the notification after 3 seconds
       const timer = setTimeout(() => {
         setNotification("");
       }, 3000);
-  
+
       // Clean up the timer if the component unmounts
       return () => clearTimeout(timer);
     }
   }, []);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   return (
     <>
@@ -62,14 +67,14 @@ const Login = () => {
               <img src={amico} className="my-5" alt="" />
             </div>
             <div className="col-sm-8 bg-light d-flex flex-column align-items-center">
-        {notification && <div className="mt-3 text-success">{notification}</div>}
+              {notification && <div className="mt-3 text-success">{notification}</div>}
               {/* Display error message if login fails */}
               {errorMessage && (
                 <span className="mt-3 text-danger mt-2">{errorMessage}</span>
               )}
               <h1 className="mt-3 fw-bold">Sign in</h1>
               <form onSubmit={handleSubmit} className="mt-4 w-50">
-                <div className=" mb-3">
+                <div className="mb-3">
                   <label
                     htmlFor="floatingEmail"
                     className="fw-semibold text-dark"
@@ -101,15 +106,24 @@ const Login = () => {
                       </a>
                     </small>
                   </div>
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    id="floatingPassword"
-                    placeholder="Enter your password"
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-group">
+                    <input
+                      type={showPassword ? "text" : "password"} // Toggle between password and text
+                      name="password"
+                      className="form-control"
+                      id="floatingPassword"
+                      placeholder="Enter your password"
+                      onChange={handleChange}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary d-flex align-items-center "
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FaEye />
+                    </button>
+                  </div>
                 </div>
 
                 <button

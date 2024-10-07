@@ -3,6 +3,7 @@ import BankNavbar from "../navbar/BankNavbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import RevenueChart from "./RevenueChart";
+import Footer from "../pages/Footer";
 
 function BankDashboard() {
   const [bank, setBank] = useState("");
@@ -24,15 +25,20 @@ function BankDashboard() {
   }, []);
   return (
     <>
-    <BankNavbar />
+      <BankNavbar />
       <div className="bg-light">
-        <div className="container">
-          <h1>{bank.bankName}</h1>
-          <div className="w-75">
-          <RevenueChart />
+        <div className="row">
+          <div className="col-sm-4 bg-white p-5">
+            <h1>{bank.bankName}</h1>
+          </div>
+          <div className="col-sm-8">
+            <div className="w-75 mx-auto">
+              <RevenueChart />
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

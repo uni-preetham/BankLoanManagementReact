@@ -34,7 +34,7 @@ function BankNavbar() {
         <div className="container">
           <button
             className="navbar-brand me-5 btn"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/bank/dashboard")}
             style={{ backgroundColor: "transparent", border: "none" }}
           >
             <img src={Logo} alt="logo" className="App-logo" />
@@ -57,15 +57,59 @@ function BankNavbar() {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/bank/registermanager" className="nav-link">
-                  Register Manager
-                </Link>
+               {/* Manager Dropdown */}
+               <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle btn"
+                  id="managerDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ backgroundColor: "transparent", border: "none" }}
+                >
+                  Manage Managers
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="managerDropdown"
+                >
+                  <li>
+                    <Link to="/bank/registermanager" className="dropdown-item">
+                      Register Manager
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/bank/allmanagers" className="dropdown-item">
+                      View Managers
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              <li className="nav-item">
-                <Link to="/bank/addloantype" className="nav-link">
-                  Add loan type
-                </Link>
+              {/* Loan Type Dropdown */}
+              <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle btn"
+                  id="loanTypeDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ backgroundColor: "transparent", border: "none" }}
+                >
+                  Manage Loan Types
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="loanTypeDropdown"
+                >
+                  <li>
+                    <Link to="/bank/addloantype" className="dropdown-item">
+                      Add Loan Type
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/bank/viewloans" className="dropdown-item">
+                      View Loan Types
+                    </Link>
+                  </li>
+                </ul>
               </li>
               <li className="nav-item">
                 <Link to="/bank/loanrequest" className="nav-link">

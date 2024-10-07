@@ -34,7 +34,7 @@ function ManagerNavbar() {
         <div className="container">
           <button
             className="navbar-brand me-5 btn"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/manager/dashboard")}
             style={{ backgroundColor: "transparent", border: "none" }}
           >
             <img src={Logo} alt="logo" className="App-logo" />
@@ -53,7 +53,7 @@ function ManagerNavbar() {
           <div className="collapse navbar-collapse" id="collapsibleNavId">
             <ul className="navbar-nav me-auto mt-2 mt-lg-0">
               <li className="nav-item">
-                <Link to="/user/dashboard" className="nav-link">
+                <Link to="/manager/dashboard" className="nav-link">
                   Home
                 </Link>
               </li>

@@ -6,8 +6,7 @@ function Timeout() {
     <>
       <Navbar />
       <div className="container d-flex flex-column justify-content-center align-items-center bg-light rounded my-5 py-5">
-        <h1>Error 69: Are you lost babygirl?</h1>
-        <small>(Error 404: Session time out)</small>
+        <h1>Error 440: Session has expired.</h1>
         <a href="/login" className="text-dark my-5">
           Please login again
         </a>
