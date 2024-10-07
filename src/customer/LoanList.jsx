@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import UserNavbar from "../navbar/UserNavbar";
+import Footer from "../pages/Footer";
 
 const LoanList = () => {
   const [loans, setLoans] = useState([]);
@@ -7,11 +9,14 @@ const LoanList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/bankloanmanagementsystem/api/loan-requests/userloans",{
-        withCredentials: true,
-      })
+      .get(
+        "http://localhost:8080/bankloanmanagementsystem/api/loan-requests/userloans",
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setLoans(response.data);
         setLoading(false);
       })
@@ -26,39 +31,48 @@ const LoanList = () => {
   }
 
   return (
-    <div>
-      <h2>Your Loan Applications</h2>
-      {loans.length === 0 ? (
-        <p>No loans applied yet.</p>
-      ) : (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Loan Name</th>
-              <th>Requested Amount</th>
-              <th>Status</th>
-              <th>Request Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loans.map((loan) => (
-              <tr key={loan.requestId}>
-                <td>{loan.loanType.loanName}</td>
-                <td>{loan.requestedAmount}</td>
-                <td>{loan.status}</td>
-                <td>{new Date(loan.requestDate).toLocaleDateString()}</td>
-                <td>
-                  {loan.approvalDate
-                    ? new Date(loan.approvalDate).toLocaleDateString()
-                    : "Pending"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+    <>
+      <UserNavbar />
+      <div className="container my-5">
+        <h2 className="mb-4">Your Loan Applications</h2>
+        {loans.length === 0 ? (
+          <p>No loans applied yet.</p>
+        ) : (
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h5 className="card-title">Payment Schedule</h5>
+              <table className="table table-hover">
+                <thead className="thead-light">
+                  <tr>
+                    <th>Loan Name</th>
+                    <th>Requested Amount</th>
+                    <th>Status</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loans.map((loan) => (
+                    <tr key={loan.requestId}>
+                      <td>{loan.loanType.loanName}</td>
+                      <td>{loan.requestedAmount}</td>
+                      <td>{loan.status}</td>
+                      <td>{new Date(loan.requestDate).toLocaleDateString()}</td>
+                      <td>
+                        {loan.approvalDate
+                          ? new Date(loan.approvalDate).toLocaleDateString()
+                          : "Pending"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 

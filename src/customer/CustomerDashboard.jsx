@@ -38,9 +38,11 @@ function CustomerDashboard() {
     <div className="bg-light">
       <div className="container">
         {/* Display a personalized message */}
-        <h1>Hi {user.firstName}!</h1>
+        <h1 className="px-4 pt-4 fw-bold display-6">Hi {user.firstName}!</h1>
         <LoanEMICalculator />
+        <hr />
         <BankDetails />
+        <hr />
         <AccountDetails />
         {/* <EMIDetails /> */}
         

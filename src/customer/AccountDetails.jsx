@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AccountDetails = () => {
   const [accounts, setAccounts] = useState([]);
@@ -10,9 +10,12 @@ const AccountDetails = () => {
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/bankloanmanagementsystem/api/account/accountdetails', {
-          withCredentials: true // Include credentials for session management
-        });
+        const response = await axios.get(
+          "http://localhost:8080/bankloanmanagementsystem/api/account/accountdetails",
+          {
+            withCredentials: true, // Include credentials for session management
+          }
+        );
         setAccounts(response.data);
       } catch (err) {
         setError("Error fetching account details");
@@ -29,25 +32,37 @@ const AccountDetails = () => {
 
   return (
     <div>
-      <h2>Your Loan Accounts</h2>
+      <h1 className="py-4 fw-bold display-6">Your Loan Accounts</h1>
       {error && <p>{error}</p>}
       {accounts.length > 0 ? (
         <div className="row">
-          {accounts.map(account => (
+          {accounts.map((account) => (
             <div key={account.accountId} className="col-md-4 mb-4">
-              <div className="card">
+              <div className="card" style={{backgroundColor: "rgba(255, 114, 94, 0.1)"}}>
                 <div className="card-body">
-                  <h5 className="card-title">{account.loanType.loanName}</h5>
+                  <h5 className="card-title mb-3">{account.loanType.loanName}</h5>
+                  <hr />
                   <p className="card-text">
-                    Bank: {account.bank.bankName}<br />
-                    Approved Amount: ₹{account.approvedAmount}<br />
-                    Interest Rate: {account.interestRate}%<br />
-                    Duration: {account.durationYears} years<br />
-                    Approval Date: {new Date(account.approvalDate).toLocaleDateString()}
-                  </p>
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => handleViewEMIDetails(account.accountId)}>View EMI Details</button>
+                    <div className="d-flex justify-content-between">
+                      <p> Bank</p>
+                      <p>{account.bank.bankName}</p>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <p> Approved Amount</p>
+                      <p>₹{account.approvedAmount}</p>
+                    </div>
+                    
+                    <div className="d-flex justify-content-between">
+                      <p> Duration</p>
+                      <p>{account.durationYears} years</p>
+                    </div>
+                    </p>
+                  <button
+                    className="btn btn-dark text-white rounded-pill w-100"
+                    onClick={() => handleViewEMIDetails(account.accountId)}
+                  >
+                    View EMI Details
+                  </button>
                 </div>
               </div>
             </div>
