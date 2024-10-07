@@ -75,4 +75,5 @@ const LoanList = () => {
   );
 };
 
+
 export default LoanList;

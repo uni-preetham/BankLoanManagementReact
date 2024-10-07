@@ -58,46 +58,50 @@ function LoanTypeList() {
 
   return (
     <>
-    <BankNavbar />
+      <BankNavbar />
       <div className="bg-light">
         <div className="container py-5">
           <h2>Loan Types</h2>
           {loanTypes.length > 0 ? (
-            <table className="table ">
-              <thead>
-                <tr>
-                  <th>Loan Name</th>
-                  <th>Interest Rate</th>
-                  <th>Max Amount</th>
-                  <th>Duration (Years)</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loanTypes.map((loanType) => (
-                  <tr key={loanType.loanTypeId}>
-                    <td>{loanType.loanName}</td>
-                    <td>{loanType.interestRate}%</td>
-                    <td>{loanType.maxAmount}</td>
-                    <td>{loanType.durationYears}</td>
-                    <td className="d-flex" style={{ gap: "10px" }}>
-                      <button
-                        className="btn btn-light border border-dark rounded-pill d-flex justify-content-center align-items-center"
-                        onClick={() => handleEdit(loanType.loanTypeId)}
-                      >
-                       <TiPencil />
-                      </button>
-                      <button
-                        className="btn btn-light border border-dark rounded-pill d-flex justify-content-center align-items-center"
-                        onClick={() => handleDelete(loanType.loanTypeId)}
-                      >
-                        <TiTrash />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <table className="table ">
+                  <thead>
+                    <tr>
+                      <th>Loan Name</th>
+                      <th>Interest Rate</th>
+                      <th>Max Amount</th>
+                      <th>Duration (Years)</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loanTypes.map((loanType) => (
+                      <tr key={loanType.loanTypeId}>
+                        <td>{loanType.loanName}</td>
+                        <td>{loanType.interestRate}%</td>
+                        <td>{loanType.maxAmount}</td>
+                        <td>{loanType.durationYears}</td>
+                        <td className="d-flex" style={{ gap: "10px" }}>
+                          <button
+                            className="btn btn-light border border-dark rounded-pill d-flex justify-content-center align-items-center"
+                            onClick={() => handleEdit(loanType.loanTypeId)}
+                          >
+                            <TiPencil />
+                          </button>
+                          <button
+                            className="btn btn-light border border-dark rounded-pill d-flex justify-content-center align-items-center"
+                            onClick={() => handleDelete(loanType.loanTypeId)}
+                          >
+                            <TiTrash />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           ) : (
             <p>No loan types found.</p>
           )}

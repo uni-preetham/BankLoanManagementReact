@@ -75,7 +75,9 @@ const ManagerDashboard = () => {
       <ManagerNavbar />
       <div className="bg-light">
         <div className="container">
-          <h1>Loan Requests</h1>
+          <h1 className="mb-4">Loan Requests</h1>
+          <div className="card shadow-sm mb-5">
+            <div className="card-body">
           <table className="table">
             <thead>
               <tr>
@@ -127,6 +129,8 @@ const ManagerDashboard = () => {
               ))}
             </tbody>
           </table>
+          </div>
+          </div>
 
           {/* Bootstrap Modal for Loan Request Details */}
           {selectedRequest && (
