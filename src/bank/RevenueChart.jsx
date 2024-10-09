@@ -89,7 +89,7 @@ const RevenueChart = () => {
 
   return (
     <div className="">
-      <h2 className="px-4 pt-4 fw-bold display-6">Expected Monthly Revenue</h2>
+      <h2 className="px-4 pt-4 fw-bold display-6">Expected Revenue Generated</h2>
       <canvas ref={chartRef} id="myChart" />
     </div>
   );

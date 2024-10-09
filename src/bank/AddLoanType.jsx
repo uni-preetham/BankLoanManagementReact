@@ -8,10 +8,10 @@ import BankNavbar from '../navbar/BankNavbar';
 const AddLoanType = () => {
   // Validation schema using Yup
   const validationSchema = Yup.object({
-    loanName: Yup.string().required('Loan name is required'),
-    interestRate: Yup.number().required('Interest rate is required').min(0, 'Interest rate must be positive'),
-    maxAmount: Yup.number().required('Maximum amount is required').min(0, 'Maximum amount must be positive'),
-    durationYears: Yup.number().required('Duration is required').min(0, 'Duration must be positive'),
+    loanName: Yup.string().required('Loan name is required').max(50, 'Maximum 50 characters only'),
+    interestRate: Yup.number().required('Interest rate is required').min(0, 'Interest rate must be positive').max(20, 'Maximum 2 numbers only'),
+    maxAmount: Yup.number().required('Maximum amount is required').min(0, 'Maximum amount must be positive').max(999999999, 'Please enter lesser amount'),
+    durationYears: Yup.number().required('Duration is required').min(0, 'Duration must be positive').max(30, 'Maximum 30 years only'),
   });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {

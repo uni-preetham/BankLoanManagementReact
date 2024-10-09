@@ -100,11 +100,11 @@ const Login = () => {
                     >
                       Password
                     </label>
-                    <small>
+                    {/* <small>
                       <a href="/forgotpassword" className="text-dark">
                         Forgot password?
                       </a>
-                    </small>
+                    </small> */}
                   </div>
                   <div className="input-group">
                     <input

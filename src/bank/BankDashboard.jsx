@@ -28,8 +28,8 @@ function BankDashboard() {
       <BankNavbar />
       <div className="bg-light">
         <div className="row">
-          <div className="col-sm-4 bg-white p-5">
-            <h1>{bank.bankName}</h1>
+          <div className="col-sm-4 bg-white d-flex justify-content-center py-5">
+            <h1>{bank.bankName} Bank</h1>
           </div>
           <div className="col-sm-8">
             <div className="w-75 mx-auto">

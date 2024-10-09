@@ -67,6 +67,7 @@ const EMIDetails = () => {
         <div className="card shadow-sm mb-5">
           <div className="card-body">
             <h5 className="card-title">Loan Information</h5>
+            <hr />
             <div className="row">
               <div className="col-md-4">
                 <p>

@@ -47,7 +47,6 @@ const LoanList = () => {
                     <th>Requested Amount</th>
                     <th>Status</th>
                     <th>Request Date</th>
-                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,11 +56,6 @@ const LoanList = () => {
                       <td>{loan.requestedAmount}</td>
                       <td>{loan.status}</td>
                       <td>{new Date(loan.requestDate).toLocaleDateString()}</td>
-                      <td>
-                        {loan.approvalDate
-                          ? new Date(loan.approvalDate).toLocaleDateString()
-                          : "Pending"}
-                      </td>
                     </tr>
                   ))}
                 </tbody>

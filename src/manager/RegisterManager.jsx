@@ -8,11 +8,16 @@ import amico from './../pages/Internet on the go-amico.png'
 function RegisterManager() {
   // Validation schema using Yup
   const validationSchema = Yup.object({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    firstName: Yup.string().required('First name is required').max(50, 'Maximum 50 characters only'),
+    lastName: Yup.string().required('Last name is required').max(50, 'Maximum 50 characters only'),
+    email: Yup.string().email('Invalid email format').required('Email is required').max(50, 'Maximum 50 characters only'),
     phone: Yup.string().optional(), // Phone is optional
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    password: Yup.string().min(8, 'Password must be at least 8 characters')
+    .max(20, 'Password must not exceed 20 characters')
+    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/[0-9]/, 'Password must contain at least one number')
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character')
+    .required('New password is required'),
   });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {

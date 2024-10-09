@@ -7,6 +7,9 @@
   pointer-events: none;
 }
 
+.manager{
+  background: url('https://img.freepik.com/free-vector/gradient-network-connection-background_23-2148888131.jpg') cover;
+}
 
 img{
   width: 100%;
